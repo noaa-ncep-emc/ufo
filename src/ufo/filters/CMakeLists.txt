@@ -58,6 +58,8 @@ set ( filters_files
       ProfileConsistencyChecks.cc
       ProfileConsistencyChecks.h
       ProfileConsistencyCheckParameters.h
+      RatioCheck.cc
+      RatioCheck.h
       Thinning.cc
       Thinning.h
       TemporalThinning.cc

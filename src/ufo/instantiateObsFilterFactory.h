@@ -31,6 +31,7 @@
 #include "ufo/filters/TrackCheckShip.h"
 #include "ufo/gnssro/QC/BackgroundCheckRONBAM.h"
 #include "ufo/gnssro/QC/ROobserror.h"
+#include "ufo/filters/RatioCheck.h"
 
 namespace ufo {
 template<typename MODEL> void instantiateObsFilterFactory() {
@@ -77,6 +78,8 @@ template<typename MODEL> void instantiateObsFilterFactory() {
            DerivativeCheckMaker("Derivative Check");
   static oops::FilterMaker<MODEL, oops::ObsFilter<MODEL, ufo::TrackCheckShip> >
            ShipTrackCheckMaker("Ship Track Check");
+  static oops::FilterMaker<MODEL, oops::ObsFilter<MODEL, ufo::RatioCheck> >
+           RatioCheckMaker("Ratio Check");
 
   // For backward compatibility, register some filters under legacy names used in the past
   static oops::FilterMaker<MODEL, oops::ObsFilter<MODEL, ufo::Gaussian_Thinning> >
