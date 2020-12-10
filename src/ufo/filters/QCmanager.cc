@@ -110,10 +110,7 @@ void QCmanager::print(std::ostream & os) const {
     size_t itrack   = 0;
     size_t ibuddy   = 0;
     size_t ionedvar  = 0;
-<<<<<<< HEAD
     size_t iratioref = 0;
-=======
->>>>>>> origin/develop
 
     for (size_t jobs = 0; jobs < iobs; ++jobs) {
       if ((*flags_)[jj][jobs] == QCflags::pass)    ++ipass;
