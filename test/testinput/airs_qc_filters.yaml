@@ -111,10 +111,12 @@ observations:
     filter variables:
     - name: brightness_temperature
       channels: *all_channels
-    minvalue: 50.00001
+#    minvalue: 50.00001
+    minvalue: 200.00001
     maxvalue: 449.99999
     action:
       name: reject
+#   passedBenchmark: 439 
 #   passedBenchmark: 26014
 #  Topography Check
   - filter: BlackList
