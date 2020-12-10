@@ -65,13 +65,13 @@ void RatioCheck::applyFilter(const std::vector<bool> & apply,
   for (size_t jobs = 0; jobs < nlocs; ++jobs) {
     if (apply[jobs]) {
       // check to see if one of the reference or value is missing
-      if (val[jobs] == missing || ref[jobs] == missing) {
+      if (val[jobs] == missing || ref[jobs] == missing || abs(ref[jobs]) < 1.e-36) {
         for (size_t jv = 0; jv < filtervars.nvars(); ++jv) {
           flagged[jv][jobs] = true;
         }
       } else {
 // Check if the ratio of val/ref is within min/max value range and set flag
-        if (fabs(ref[jobs]) < 1.e-8) {
+        if (fabs(ref[jobs]) < 1.e-36) {
           ref[jobs] = 1.;
         }
          float ratio = val[jobs] / ref[jobs];

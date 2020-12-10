@@ -28,4 +28,4 @@ observations:
     value: var3@MetaData        # var3@MetaData = 1, 1, 1, 1, 1, 0, 0, 0, 0, 0
     reference: var4@MetaData    # var4@MetaData = 0, 0, 0, 0, 0, 1, 2, 3, 4, 5
     minvalue: 0.5
-  passedBenchmark: 5
+  passedBenchmark: 0
