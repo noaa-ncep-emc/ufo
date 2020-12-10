@@ -52,7 +52,7 @@ void RatioCheck::applyFilter(const std::vector<bool> & apply,
   float vmin = config_.getFloat("minvalue", missing);
   float vmax = config_.getFloat("maxvalue", missing);
 
-// check if threshold should be absolute or not 
+// check if threshold should be absolute or not
   const bool absval = config_.getBool("absolute", false);
 
 // Get reference values and values to compare (as floats)

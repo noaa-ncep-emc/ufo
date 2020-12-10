@@ -25,13 +25,13 @@
 #include "ufo/filters/PreQC.h"
 #include "ufo/filters/ProfileConsistencyChecks.h"
 #include "ufo/filters/QCmanager.h"
+#include "ufo/filters/RatioCheck.h"
 #include "ufo/filters/TemporalThinning.h"
 #include "ufo/filters/Thinning.h"
 #include "ufo/filters/TrackCheck.h"
 #include "ufo/filters/TrackCheckShip.h"
 #include "ufo/gnssro/QC/BackgroundCheckRONBAM.h"
 #include "ufo/gnssro/QC/ROobserror.h"
-#include "ufo/filters/RatioCheck.h"
 
 namespace ufo {
 template<typename MODEL> void instantiateObsFilterFactory() {
