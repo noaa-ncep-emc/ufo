@@ -171,15 +171,17 @@ void QCmanager::print(std::ostream & os) const {
       if (ifgss > 0) os << info << ifgss << " rejected by first-guess check." << std::endl;
       if (ignss > 0) os << info << ignss << " rejected by GNSSRO reality check." << std::endl;
       if (idiffref > 0) os << info << idiffref << " rejected by difference check." << std::endl;
+      if (iratioref > 0) os << info << iratioref << " rejected by ratio check." << std::endl;
       if (iseaice  > 0) os << info << iseaice  << " removed by sea ice check." << std::endl;
       if (itrack   > 0) os << info << itrack  << " removed by track check." << std::endl;
       if (ibuddy   > 0) os << info << ibuddy  << " removed by buddy check." << std::endl;
-      if (iratioref > 0) os << info << iratioref << " rejected by ratio check." << std::endl;
       if (ionedvar  > 0) os << info << ionedvar  << " removed by 1D Var check." << std::endl;
+      
+      os << info << ipass << " passed out of " << iobs << " observations." << std::endl;
     }
 
     ASSERT(ipass + imiss + ipreq + ibnds + iwhit + iblck + iherr + ithin + iclw + iprof + ifgss + \
-           ignss + idiffref + iseaice + itrack + ibuddy + idydx + iratioref == iobs);
+           ignss + idiffref + iseaice + itrack + ibuddy + idydx + ionedvar + iratioref == iobs);
   }
 }
 
