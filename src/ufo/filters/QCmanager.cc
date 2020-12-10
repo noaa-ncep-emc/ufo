@@ -93,6 +93,7 @@ void QCmanager::print(std::ostream & os) const {
   for (size_t jj = 0; jj < observed_.size(); ++jj) {
     size_t iobs = obsdb_.nlocs();
     size_t ipass = 0;
+    size_t iratioref = 0;
     size_t imiss = 0;
     size_t ipreq = 0;
     size_t ibnds = 0;
@@ -111,6 +112,7 @@ void QCmanager::print(std::ostream & os) const {
     size_t ibuddy   = 0;
 
     for (size_t jobs = 0; jobs < iobs; ++jobs) {
+      if ((*flags_)[jj][jobs] == QCflags::ratioref) ++iratioref;
       if ((*flags_)[jj][jobs] == QCflags::pass)    ++ipass;
       if ((*flags_)[jj][jobs] == QCflags::missing) ++imiss;
       if ((*flags_)[jj][jobs] == QCflags::preQC)   ++ipreq;
@@ -131,6 +133,7 @@ void QCmanager::print(std::ostream & os) const {
     }
 
     if (obsdb_.isDistributed()) {
+      obsdb_.comm().allReduceInPlace(iratioref, eckit::mpi::sum());
       obsdb_.comm().allReduceInPlace(iobs, eckit::mpi::sum());
       obsdb_.comm().allReduceInPlace(ipass, eckit::mpi::sum());
       obsdb_.comm().allReduceInPlace(imiss, eckit::mpi::sum());
@@ -169,12 +172,12 @@ void QCmanager::print(std::ostream & os) const {
       if (iseaice  > 0) os << info << iseaice  << " removed by sea ice check." << std::endl;
       if (itrack   > 0) os << info << itrack  << " removed by track check." << std::endl;
       if (ibuddy   > 0) os << info << ibuddy  << " removed by buddy check." << std::endl;
-
+      if (iratioref > 0) os << info << iratioref << " rejected by ratio check." << std::endl;
       os << info << ipass << " passed out of " << iobs << " observations." << std::endl;
     }
 
     ASSERT(ipass + imiss + ipreq + ibnds + iwhit + iblck + iherr + ithin + iclw + iprof + ifgss + \
-           ignss + idiffref + iseaice + itrack + ibuddy + idydx == iobs);
+           ignss + idiffref + iseaice + itrack + ibuddy + idydx + iratioref == iobs);
   }
 }
 
