@@ -106,6 +106,7 @@ void QCmanager::print(std::ostream & os) const {
     size_t iclw  = 0;
     size_t iprof = 0;
     size_t idiffref = 0;
+    size_t iratioref = 0;
     size_t iseaice  = 0;
     size_t itrack   = 0;
     size_t ibuddy   = 0;
@@ -123,6 +124,7 @@ void QCmanager::print(std::ostream & os) const {
       if ((*flags_)[jj][jobs] == QCflags::clw)     ++iclw;
       if ((*flags_)[jj][jobs] == QCflags::profile) ++iprof;
       if ((*flags_)[jj][jobs] == QCflags::diffref) ++idiffref;
+      if ((*flags_)[jj][jobs] == QCflags::ratioref) ++iratioref;
       if ((*flags_)[jj][jobs] == QCflags::seaice)  ++iseaice;
       if ((*flags_)[jj][jobs] == 76 || (*flags_)[jj][jobs] == 77)  ++ignss;
       if ((*flags_)[jj][jobs] == QCflags::track)  ++itrack;
@@ -145,6 +147,7 @@ void QCmanager::print(std::ostream & os) const {
       obsdb_.comm().allReduceInPlace(ignss, eckit::mpi::sum());
       obsdb_.comm().allReduceInPlace(ithin, eckit::mpi::sum());
       obsdb_.comm().allReduceInPlace(idiffref, eckit::mpi::sum());
+      obsdb_.comm().allReduceInPlace(iratioref, eckit::mpi::sum());
       obsdb_.comm().allReduceInPlace(iseaice,  eckit::mpi::sum());
       obsdb_.comm().allReduceInPlace(itrack,  eckit::mpi::sum());
       obsdb_.comm().allReduceInPlace(ibuddy,  eckit::mpi::sum());
@@ -166,15 +169,15 @@ void QCmanager::print(std::ostream & os) const {
       if (ifgss > 0) os << info << ifgss << " rejected by first-guess check." << std::endl;
       if (ignss > 0) os << info << ignss << " rejected by GNSSRO reality check." << std::endl;
       if (idiffref > 0) os << info << idiffref << " rejected by difference check." << std::endl;
+      if (iratioref > 0) os << info << iratioref << " rejected by ratio check." << std::endl;
       if (iseaice  > 0) os << info << iseaice  << " removed by sea ice check." << std::endl;
       if (itrack   > 0) os << info << itrack  << " removed by track check." << std::endl;
       if (ibuddy   > 0) os << info << ibuddy  << " removed by buddy check." << std::endl;
-
       os << info << ipass << " passed out of " << iobs << " observations." << std::endl;
     }
 
     ASSERT(ipass + imiss + ipreq + ibnds + iwhit + iblck + iherr + ithin + iclw + iprof + ifgss + \
-           ignss + idiffref + iseaice + itrack + ibuddy + idydx == iobs);
+           ignss + idiffref + iseaice + itrack + ibuddy + idydx + iratioref == iobs);
   }
 }
 
