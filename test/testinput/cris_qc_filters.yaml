@@ -122,8 +122,7 @@ observations:
     - name: brightness_temperature
       channels: *all_channels
     minvalue: 50.00001
-    maxvalue: 250.99999
-#   maxvalue: 449.99999
+    maxvalue: 449.99999
     action:
       name: reject
 #   passedBenchmark: 41993
