@@ -4,8 +4,8 @@ observations:
 - obs space:
     name: test data
     obsdatain:
-      #obsfile: Data/ufo/testinput_tier_1/filters_testdata.nc4
-      obsfile: /scratch1/NCEPDEV/da/Iliana.Genkova/JEDI/tutorial/src/fv3-bundle/ufo/test/testinput/filters/filters_testdata.nc4
+      obsfile: Data/ufo/testinput_tier_1/filters_testdata.nc4
+      #obsfile: /scratch1/NCEPDEV/da/Iliana.Genkova/JEDI/tutorial/src/fv3-bundle/ufo/test/testinput/filters/filters_testdata.nc4
     simulated variables: [variable1]
   obs filters:
   - filter: Ratio Check   # test min and maxvalue of ratio of var2/var1
@@ -20,8 +20,8 @@ observations:
 - obs space:
     name: test data
     obsdatain:
-      #obsfile: Data/ufo/testinput_tier_1/filters_testdata.nc4
-      obsfile: /scratch1/NCEPDEV/da/Iliana.Genkova/JEDI/tutorial/src/fv3-bundle/ufo/test/testinput/filters/filters_testdata.nc4
+      obsfile: Data/ufo/testinput_tier_1/filters_testdata.nc4
+      #obsfile: /scratch1/NCEPDEV/da/Iliana.Genkova/JEDI/tutorial/src/fv3-bundle/ufo/test/testinput/filters/filters_testdata.nc4
     simulated variables: [variable1]
   obs filters:
   - filter: Ratio Check    # compare var3/var4 with min
