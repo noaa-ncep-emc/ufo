@@ -93,6 +93,7 @@ void QCmanager::print(std::ostream & os) const {
   for (size_t jj = 0; jj < observed_.size(); ++jj) {
     size_t iobs = obsdb_.nlocs();
     size_t ipass = 0;
+    size_t iratioref = 0;
     size_t imiss = 0;
     size_t ipreq = 0;
     size_t ibnds = 0;
@@ -112,6 +113,7 @@ void QCmanager::print(std::ostream & os) const {
 
     for (size_t jobs = 0; jobs < iobs; ++jobs) {
       if ((*flags_)[jj][jobs] == QCflags::pass)    ++ipass;
+      if ((*flags_)[jj][jobs] == QCflags::ratioref)    ++iratioref;
       if ((*flags_)[jj][jobs] == QCflags::missing) ++imiss;
       if ((*flags_)[jj][jobs] == QCflags::preQC)   ++ipreq;
       if ((*flags_)[jj][jobs] == QCflags::bounds)  ++ibnds;
@@ -133,6 +135,7 @@ void QCmanager::print(std::ostream & os) const {
     if (obsdb_.isDistributed()) {
       obsdb_.comm().allReduceInPlace(iobs, eckit::mpi::sum());
       obsdb_.comm().allReduceInPlace(ipass, eckit::mpi::sum());
+      obsdb_.comm().allReduceInPlace(iratioref, eckit::mpi::sum());
       obsdb_.comm().allReduceInPlace(imiss, eckit::mpi::sum());
       obsdb_.comm().allReduceInPlace(ipreq, eckit::mpi::sum());
       obsdb_.comm().allReduceInPlace(ibnds, eckit::mpi::sum());
@@ -154,6 +157,7 @@ void QCmanager::print(std::ostream & os) const {
     if (obsdb_.comm().rank() == 0) {
       const std::string info = "QC " + flags_->obstype() + " " + observed_[jj] + ": ";
       if (imiss > 0) os << info << imiss << " missing values." << std::endl;
+      if (iratioref > 0) os << info << iratioref << " rejected by ratio check." << std::endl;
       if (ipreq > 0) os << info << ipreq << " rejected by pre QC." << std::endl;
       if (ibnds > 0) os << info << ibnds << " out of bounds." << std::endl;
       if (iwhit > 0) os << info << iwhit << " out of domain of use." << std::endl;
@@ -174,7 +178,7 @@ void QCmanager::print(std::ostream & os) const {
     }
 
     ASSERT(ipass + imiss + ipreq + ibnds + iwhit + iblck + iherr + ithin + iclw + iprof + ifgss + \
-           ignss + idiffref + iseaice + itrack + ibuddy + idydx == iobs);
+           ignss + idiffref + iseaice + itrack + ibuddy + idydx + iratioref == iobs);
   }
 }
 
